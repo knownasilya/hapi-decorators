@@ -1,6 +1,7 @@
 # hapi-decorators
 
 Decorators for HapiJS routes.
+Heavily inspired and borrowed from https://github.com/stewartml/express-decorators
 
 ## Usage
 
