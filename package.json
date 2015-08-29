@@ -1,0 +1,11 @@
+{
+  "name": "hapi-decorators",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ilya Radchenko <ilya@burstcreations.com> (https://github.com/knownasilya)",
+  "license": "ISC"
+}
