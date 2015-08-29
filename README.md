@@ -63,3 +63,10 @@ class Users {
 * `@all(path)`
 
 These are shortcuts for `@route(method, path)` where `@get('/revoke')` would be `@route('get', '/revoke')`.
+
+## TODO
+
+* `@config` - Passing a whole config, solution that would encompase all future decorators in a crude way. Most control to the user.
+* `@auth` - Handy auth, without doing the whole config.
+* `@cache`
+* more..
