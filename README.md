@@ -10,13 +10,20 @@ npm install --save hapi-decorators
 ```
 
 ```js
-import * as web from 'hapi-decorators'
+import {
+  controller,
+  get
+} from 'hapi-decorators'
 
-@web.controller('/hello')
+@controller('/hello')
 public class TestController {
-  @web.get('/world')
-  sayHelloAction(request, response) {
-    response(`hello, ${this.target}`);
+  constructor(target) {
+    this.target = target
+  }
+  
+  @get('/world')
+  sayHello(request, reply) {
+    reply({ message: `hello, ${this.target}` })
   }
 }
 
