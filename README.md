@@ -3,6 +3,8 @@
 Decorators for HapiJS routes.
 Heavily inspired and borrowed from https://github.com/stewartml/express-decorators
 
+Great to mix with https://github.com/jayphelps/core-decorators.js
+
 ## Usage
 
 ```no-highlight
