@@ -11,7 +11,7 @@ var routeMethods = {
   all: '*'
 }
 
-exports.controller = function controller(baseUrl) {
+exports.controller = function controller (baseUrl) {
   return function (target) {
     target.prototype.baseUrl = baseUrl
 
@@ -19,11 +19,11 @@ exports.controller = function controller(baseUrl) {
       var base = trimslash(this.baseUrl)
 
       if (!this.rawRoutes) {
-        return;
+        return
       }
 
       return this.rawRoutes.map(function (route) {
-        var url = (base + trimslash(route.path)) || '/';
+        var url = (base + trimslash(route.path)) || '/'
 
         route.path = url
 
@@ -33,7 +33,7 @@ exports.controller = function controller(baseUrl) {
   }
 }
 
-function route(method, path) {
+function route (method, path) {
   return function (target, key, descriptor) {
     setRoute(target, key, {
       method: method,
@@ -55,7 +55,7 @@ Object.keys(routeMethods).forEach(function (key) {
   exports[key] = route.bind(null, routeMethods[key])
 })
 
-function validate(config) {
+function validate (config) {
   return function (target, key, descriptor) {
     setRoute(target, key, {
       config: {
@@ -69,7 +69,7 @@ function validate(config) {
 
 exports.validate = validate
 
-function setRoute(target, key, value) {
+function setRoute (target, key, value) {
   if (!target.rawRoutes) {
     target.rawRoutes = []
   }
@@ -90,7 +90,7 @@ function setRoute(target, key, value) {
   }
 }
 
-function trimslash(s) {
+function trimslash (s) {
   return s[s.length - 1] === '/'
     ? s.slice(0, s.length - 1)
     : s
