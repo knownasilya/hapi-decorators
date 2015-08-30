@@ -75,7 +75,7 @@ function setRoute(target, key, value) {
   }
 
   var targetName = target.constructor.name
-  var routeId = `${targetName}.${key}`
+  var routeId = targetName + '.' + key
   var defaultRoute = {
     config: {
       id: routeId
