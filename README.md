@@ -64,6 +64,11 @@ class Users {
 
 These are shortcuts for `@route(method, path)` where `@get('/revoke')` would be `@route('get', '/revoke')`.
 
+### `@validate(config)`
+
+Add a validation object for the different types, except for the response.
+`config` is an object, with keys for the different types, e.g. `payload`.
+
 ## TODO
 
 * `@config` - Passing a whole config, solution that would encompase all future decorators in a crude way. Most control to the user.

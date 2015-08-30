@@ -55,14 +55,39 @@ Object.keys(routeMethods).forEach(function (key) {
   exports[key] = route.bind(null, routeMethods[key])
 })
 
+function validate(config) {
+  return function (target, key, descriptor) {
+    setRoute(target, key, {
+      config: {
+        validate: config
+      }
+    })
+
+    return descriptor
+  }
+}
+
+exports.validate = validate
+
 function setRoute(target, key, value) {
   if (!target.rawRoutes) {
     target.rawRoutes = []
   }
 
-  var found = find(target.rawRoutes, 'config.id', key)
+  var targetName = target.constructor.name
+  var routeId = `${targetName}.${key}`
+  var defaultRoute = {
+    config: {
+      id: routeId
+    }
+  }
+  var found = find(target.rawRoutes, 'config.id', routeId)
 
-  target.rawRoutes.push(extend(found || {}, value))
+  if (found) {
+    extend(true, found, value)
+  } else {
+    target.rawRoutes.push(extend(true, defaultRoute, value))
+  }
 }
 
 function trimslash(s) {
