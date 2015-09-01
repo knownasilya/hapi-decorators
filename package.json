@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "snazzy index.js",
-    "test": "node test | tap-spec",
+    "test": "babel-node test/*.js | tspec",
     "posttest": "npm run lint",
     "coverage": "babel-node node_modules/.bin/isparta cover test/*.js",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
