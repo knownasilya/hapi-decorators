@@ -20,7 +20,7 @@ exports.controller = function controller (baseUrl) {
       var base = trimslash(this.baseUrl)
 
       if (!this.rawRoutes) {
-        return
+        return []
       }
 
       return this.rawRoutes.map(function (route) {

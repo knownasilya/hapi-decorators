@@ -1,10 +1,7 @@
 'use strict'
 
-require('babel/register')({
-  optional: ['es7.decorators', 'es7.objectRestSpread']
-})
-
 var test = require('tape')
+var NoRoutes = require('./fixtures/no-routes')
 var web = require('../')
 
 @web.controller('/check')
@@ -16,6 +13,13 @@ class Check {
 }
 
 let check = new Check()
+
+test('instance has no routes', function (t) {
+  let instance = new NoRoutes()
+
+  t.same(instance.routes(), [], 'No routes returns empty array')
+  t.end()
+})
 
 test('instance has routes function', function (t) {
   t.ok(typeof check.routes === 'function', 'Has `routes` function')
