@@ -16,6 +16,7 @@ exports.controller = function controller (baseUrl) {
     target.prototype.baseUrl = baseUrl
 
     target.prototype.routes = function () {
+      var self = this
       var base = trimslash(this.baseUrl)
 
       if (!this.rawRoutes) {
@@ -26,6 +27,7 @@ exports.controller = function controller (baseUrl) {
         var url = (base + trimslash(route.path)) || '/'
 
         route.path = url
+        route.config.bind = self
 
         return route
       })
