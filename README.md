@@ -5,6 +5,10 @@ Heavily inspired and borrowed from https://github.com/stewartml/express-decorato
 
 Great to mix with https://github.com/jayphelps/core-decorators.js
 
+[![npm version](https://badge.fury.io/js/hapi-decorators.svg)](http://badge.fury.io/js/hapi-decorators)
+[![Build Status](https://travis-ci.org/knownasilya/hapi-decorators.svg)](https://travis-ci.org/knownasilya/hapi-decorators)
+[![Coverage Status](https://coveralls.io/repos/knownasilya/hapi-decorators/badge.svg?branch=master&service=github)](https://coveralls.io/github/knownasilya/hapi-decorators?branch=master)
+
 ## Usage
 
 ```no-highlight
@@ -22,7 +26,7 @@ public class TestController {
   constructor(target) {
     this.target = target
   }
-  
+
   @get('/world')
   sayHello(request, reply) {
     reply({ message: `hello, ${this.target}` })
