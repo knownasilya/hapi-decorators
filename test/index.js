@@ -7,12 +7,18 @@ var web = require('../')
 @web.controller('/check')
 class Check {
   @web.route('get', '/in')
+  @web.validate({ payload: true })
   checkIn(request, reply) {
     
   }
 }
 
-let check = new Check()
+test('instance has routes function', function (t) {
+  let check = new Check()
+
+  t.ok(typeof check.routes === 'function', 'Has `routes` function')
+  t.end()
+})
 
 test('instance has no routes', function (t) {
   let instance = new NoRoutes()
@@ -21,12 +27,8 @@ test('instance has no routes', function (t) {
   t.end()
 })
 
-test('instance has routes function', function (t) {
-  t.ok(typeof check.routes === 'function', 'Has `routes` function')
-  t.end()
-})
-
 test('instance generates routes array', function (t) {
+  let check = new Check()
   var results = check.routes()
 
   t.ok(Array.isArray(results), 'results is an array')
@@ -37,5 +39,6 @@ test('instance generates routes array', function (t) {
   t.equal(first.method, 'get', 'method is get')
   t.equal(first.path, '/check/in', 'path is merged with controller path')
   t.equal(typeof first.handler, 'function', 'handler is a function')
+  t.same(first.config, { id: 'Check.checkIn', bind: check, validate: { payload: true } }, 'Config is valid')
   t.end()
 })

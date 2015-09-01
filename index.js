@@ -37,11 +37,14 @@ exports.controller = function controller (baseUrl) {
 
 function route (method, path) {
   return function (target, key, descriptor) {
+    var targetName = target.constructor.name
+    var routeId = targetName + '.' + key
+
     setRoute(target, key, {
       method: method,
       path: path,
       config: {
-        id: key
+        id: routeId
       },
       handler: descriptor.value
     })
