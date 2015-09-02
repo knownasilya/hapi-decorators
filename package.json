@@ -16,6 +16,12 @@
     "type": "git",
     "url": "git+https://github.com/knownasilya/hapi-decorators.git"
   },
+  "keywords": [
+    "decorators",
+    "hapijs",
+    "hapi",
+    "es7"
+  ],
   "license": "ISC",
   "dependencies": {
     "extend": "^3.0.0",
