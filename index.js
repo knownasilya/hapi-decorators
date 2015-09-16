@@ -24,6 +24,10 @@ exports.controller = function controller (baseUrl) {
       }
 
       return this.rawRoutes.map(function (route) {
+        if (!route.path) {
+          throw new Error('Route path must be set with `@route` or another alias')
+        }
+
         var url = (base + trimslash(route.path)) || '/'
 
         route.path = url
@@ -59,6 +63,18 @@ exports.route = route
 Object.keys(routeMethods).forEach(function (key) {
   exports[key] = route.bind(null, routeMethods[key])
 })
+
+function config (config) {
+  return function (target, key, descriptor) {
+    setRoute(target, key, {
+      config: config
+    })
+
+    return descriptor
+  }
+}
+
+exports.config = config
 
 function validate (config) {
   return function (target, key, descriptor) {
