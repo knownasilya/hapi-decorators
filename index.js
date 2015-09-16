@@ -90,6 +90,20 @@ function validate (config) {
 
 exports.validate = validate
 
+function cache (cacheConfig) {
+  return function (target, key, descriptor) {
+    setRoute(target, key, {
+      config: {
+        cache: cacheConfig
+      }
+    })
+
+    return descriptor
+  }
+}
+
+exports.cache = cache
+
 function setRoute (target, key, value) {
   if (!target.rawRoutes) {
     target.rawRoutes = []

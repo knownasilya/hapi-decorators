@@ -25,7 +25,7 @@ test('instance generates routes array', function (t) {
   let results = instance.routes()
 
   t.ok(Array.isArray(results), 'results is an array')
-  t.equal(results.length, 2, 'Has right number of routes')
+  t.equal(results.length, 3, 'Has right number of routes')
 
   let first = results[0]
 
@@ -41,6 +41,15 @@ test('validate sets up config correctly', function (t) {
   let first = results[0]
 
   t.same(first.config, { id: 'Check.checkIn', bind: instance, validate: { payload: true } }, 'validate config is valid')
+  t.end()
+})
+
+test('cache sets up config correctly', function (t) {
+  let instance = new Default()
+  let results = instance.routes()
+  let route = results[2]
+
+  t.same(route.config.cache, { privacy: 'public' }, 'cache config is valid')
   t.end()
 })
 

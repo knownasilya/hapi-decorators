@@ -78,3 +78,7 @@ Overall configuration setting if none of the other decorators are sufficient.
 
 Add a validation object for the different types, except for the response.
 `config` is an object, with keys for the different types, e.g. `payload`.
+
+### `@cache(cacheConfig)`
+
+Cache settings for the route config object.

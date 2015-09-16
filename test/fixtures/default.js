@@ -1,17 +1,28 @@
 var web = require('../../')
+var controller = web.controller
+var route = web.route
+var cache = web.cache
+var config = web.config
+var validate = web.validate
 
-@web.controller('/check')
+@controller('/check')
 class Check {
-  @web.route('get', '/in')
-  @web.validate({ payload: true })
+  @route('get', '/in')
+  @validate({ payload: true })
   checkIn(request, reply) {
     // intentionally empty
   }
 
-  @web.route('get', '/out')
-  @web.config({ test: 'hello' })
+  @route('get', '/out')
+  @config({ test: 'hello' })
   checkOut(request, reply) {
-  
+
+  }
+
+  @route('get', '/')
+  @cache({ privacy: 'public' })
+  listAll(request, reply) {
+
   }
 }
 
