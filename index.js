@@ -2,6 +2,7 @@
 
 var extend = require('extend')
 var find = require('lodash.find')
+var debug = require('debug')('hapi-decorators')
 var routeMethods = {
   get: 'get',
   post: 'post',
@@ -19,6 +20,9 @@ exports.controller = function controller (baseUrl) {
       var self = this
       var base = trimslash(this.baseUrl)
 
+      debug('Pre-trim baseUrl: %s', this.baseUrl)
+      debug('Post-trim baseUrl: %s', base)
+
       if (!this.rawRoutes) {
         return []
       }
@@ -28,6 +32,7 @@ exports.controller = function controller (baseUrl) {
           throw new Error('Route path must be set with `@route` or another alias')
         }
 
+        debug('Route path before merge with baseUrl: %s', route.path)
         var url = (base + trimslash(route.path)) || '/'
 
         route.path = url
@@ -40,6 +45,7 @@ exports.controller = function controller (baseUrl) {
 }
 
 function route (method, path) {
+  debug('@route (or alias) setup')
   return function (target, key, descriptor) {
     var targetName = target.constructor.name
     var routeId = targetName + '.' + key
@@ -65,6 +71,7 @@ Object.keys(routeMethods).forEach(function (key) {
 })
 
 function config (config) {
+  debug('@config setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
       config: config
@@ -77,6 +84,7 @@ function config (config) {
 exports.config = config
 
 function validate (config) {
+  debug('@validate setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
       config: {
@@ -91,6 +99,7 @@ function validate (config) {
 exports.validate = validate
 
 function cache (cacheConfig) {
+  debug('@cache setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
       config: {
@@ -119,8 +128,10 @@ function setRoute (target, key, value) {
   var found = find(target.rawRoutes, 'config.id', routeId)
 
   if (found) {
+    debug('Subsequent configuration of route object for: %s', routeId)
     extend(true, found, value)
   } else {
+    debug('Initial setup of route object for: %s', routeId)
     target.rawRoutes.push(extend(true, defaultRoute, value))
   }
 }
