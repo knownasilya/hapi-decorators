@@ -17,8 +17,8 @@ npm install --save hapi-decorators
 
 ```js
 import {
-  controller,
-  get
+  get,
+  controller
 } from 'hapi-decorators'
 
 @controller('/hello')
