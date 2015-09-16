@@ -16,6 +16,12 @@ npm install --save hapi-decorators
 ```
 
 ```js
+/*
+ * index.js
+ *
+ * Hapi initialization not shown, but `server` is the assumed
+ * instance;
+ */
 import {
   get,
   controller
@@ -37,6 +43,12 @@ let test = new TestController('world')
 
 server.routes(test.routes())
 ```
+
+Run the above script with the following command, after installing [babel].
+```no-highlight
+babel-node --optional es7.decorators,es7.objectRestSpread index.js
+```
+
 
 ## Decorators
 
@@ -82,3 +94,5 @@ Add a validation object for the different types, except for the response.
 ### `@cache(cacheConfig)`
 
 Cache settings for the route config object.
+
+[babel]: https://www.npmjs.com/package/babel
