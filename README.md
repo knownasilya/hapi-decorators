@@ -44,10 +44,16 @@ let test = new TestController('world')
 server.routes(test.routes())
 ```
 
+### Setup Babel
+
 Run the above script with the following command, after installing [babel].
+
 ```no-highlight
 babel-node --optional es7.decorators,es7.objectRestSpread index.js
 ```
+
+Note: Decorators are currently unsupported in Babel 6. To work around that [issue]
+use the [transform-decorators-legacy] plugin.
 
 
 ## Decorators
@@ -96,3 +102,5 @@ Add a validation object for the different types, except for the response.
 Cache settings for the route config object.
 
 [babel]: https://www.npmjs.com/package/babel
+[transform-decorators-legacy]: https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
+[issue]: https://phabricator.babeljs.io/T2645
