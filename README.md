@@ -53,7 +53,7 @@ babel-node --optional es7.decorators,es7.objectRestSpread index.js
 ```
 
 Note: Decorators are currently unsupported in Babel 6. To work around that [issue]
-use the [transform-decorators-legacy] plugin.
+use the [transform-decorators-legacy] plugin. See this [post] for detailed instructions.
 
 
 ## Decorators
@@ -104,3 +104,4 @@ Cache settings for the route config object.
 [babel]: https://www.npmjs.com/package/babel
 [transform-decorators-legacy]: https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
 [issue]: https://phabricator.babeljs.io/T2645
+[post]: http://technologyadvice.github.io/es7-decorators-babel6
