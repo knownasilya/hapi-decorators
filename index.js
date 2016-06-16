@@ -35,10 +35,12 @@ exports.controller = function controller (baseUrl) {
         debug('Route path before merge with baseUrl: %s', route.path)
         var url = (base + trimslash(route.path)) || '/'
 
-        route.path = url
-        route.config.bind = self
+        var hapiRoute = extend({}, route)
 
-        return route
+        hapiRoute.path = url
+        hapiRoute.config.bind = self
+
+        return hapiRoute
       })
     }
   }

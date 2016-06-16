@@ -35,6 +35,18 @@ test('instance generates routes array', function (t) {
   t.end()
 })
 
+test('route paths remain valid after repeated calls to `routes()` method', function(t) {
+  let instance = new Default()
+  let results = instance.routes()
+  let results2 = instance.routes()
+  let results3 = instance.routes()
+
+  let first = results3[0]
+
+  t.equal(first.path, '/check/in', 'path remains valid')
+  t.end()
+})
+
 test('validate sets up config correctly', function (t) {
   let instance = new Default()
   let results = instance.routes()
