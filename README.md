@@ -16,17 +16,20 @@ npm install --save hapi-decorators
 ```
 
 ```js
-/*
- * index.js
- *
- * Hapi initialization not shown, but `server` is the assumed
- * instance;
- */
 import {
   get,
   controller
 } from 'hapi-decorators'
+import Hapi from 'hapi'
 
+const server = new Hapi.Server()
+
+server.connection({
+  host: 'localhost',
+  port: 3000
+})
+
+// Define your endpoint controller
 @controller('/hello')
 public class TestController {
   constructor(target) {
@@ -39,9 +42,19 @@ public class TestController {
   }
 }
 
+// InitializeController
 let test = new TestController('world')
 
+// Add Test Controller routes to server
 server.routes(test.routes())
+
+// Start the server
+server.start((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log('Server running at:', server.info.uri);
+})
 ```
 
 ### Setup Babel
