@@ -31,7 +31,7 @@ server.connection({
 
 // Define your endpoint controller
 @controller('/hello')
-public class TestController {
+class TestController {
   constructor(target) {
     this.target = target
   }
