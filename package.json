@@ -10,7 +10,7 @@
     "coverage": "babel-node node_modules/.bin/isparta cover test/*.js | tspec",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
-    "deploy:docs": "docpress build && git-update-ghpages Strider-CD/core _docpress"
+    "deploy:docs": "docpress build && git-update-ghpages knownasilya/hapi-decorators _docpress"
   },
   "author": "Ilya Radchenko <ilya@burstcreations.com> (https://github.com/knownasilya)",
   "repository": {
