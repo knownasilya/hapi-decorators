@@ -60,10 +60,8 @@ server.routes(test.routes())
 
 <span class="pl-c">// Start the server</span>
 server.start((err) =&gt; {
-  <span class="pl-k">if</span> (err) {
-    <span class="pl-k">throw</span> err;
-  }
-  <span class="pl-c1">console</span>.log(<span class="pl-s">&apos;Server running at:&apos;</span>, server.info.uri);
+  <span class="pl-k">if</span> (err) <span class="pl-k">throw</span> err
+  <span class="pl-c1">console</span>.log(<span class="pl-s">`Server running at: <span class="hljs-subst">${server.info.uri}</span>`</span>)
 })
 </code></pre>
 <h3 id="setup-babel">Setup Babel</h3>
