@@ -26,17 +26,20 @@ Heavily inspired and borrowed from <a href="https://github.com/stewartml/express
 <h2 id="usage">Usage</h2>
 <pre><code class="lang-no-highlight">npm install --save hapi-decorators
 </code></pre>
-<pre><code class="lang-js"><span class="pl-c">/*
- * index.js
- *
- * Hapi initialization not shown, but `server` is the assumed
- * instance;
- */</span>
-<span class="pl-k">import</span> {
+<pre><code class="lang-js"><span class="pl-k">import</span> {
   get,
   controller
 } <span class="pl-k">from</span> <span class="pl-s">&apos;hapi-decorators&apos;</span>
+<span class="pl-k">import</span> Hapi <span class="pl-k">from</span> <span class="pl-s">&apos;hapi&apos;</span>
 
+<span class="pl-k">const</span> server = <span class="pl-k">new</span> Hapi.Server()
+
+server.connection({
+  host: <span class="pl-s">&apos;localhost&apos;</span>,
+  port: <span class="hljs-number">3000</span>
+})
+
+<span class="pl-c">// Define your endpoint controller</span>
 @controller(<span class="pl-s">&apos;/hello&apos;</span>)
 public <span class="hljs-class"><span class="pl-k">class</span> <span class="pl-ent">TestController</span> </span>{
   <span class="pl-k">constructor</span>(target) {
@@ -49,9 +52,19 @@ public <span class="hljs-class"><span class="pl-k">class</span> <span class="pl-
   }
 }
 
+<span class="pl-c">// InitializeController</span>
 <span class="pl-k">let</span> test = <span class="pl-k">new</span> TestController(<span class="pl-s">&apos;world&apos;</span>)
 
+<span class="pl-c">// Add Test Controller routes to server</span>
 server.routes(test.routes())
+
+<span class="pl-c">// Start the server</span>
+server.start((err) =&gt; {
+  <span class="pl-k">if</span> (err) {
+    <span class="pl-k">throw</span> err;
+  }
+  <span class="pl-c1">console</span>.log(<span class="pl-s">&apos;Server running at:&apos;</span>, server.info.uri);
+})
 </code></pre>
 <h3 id="setup-babel">Setup Babel</h3>
 <p>Run the above script with the following command, after installing <a href="https://www.npmjs.com/package/babel">babel</a>.</p>
