@@ -1,7 +1,7 @@
 {
   "name": "hapi-decorators",
-  "version": "0.4.2",
-  "description": "",
+  "version": "0.4.3",
+  "description": "Decorators for HapiJS routes using ES6 classes",
   "main": "index.js",
   "scripts": {
     "lint": "snazzy index.js",
