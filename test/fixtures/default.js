@@ -9,19 +9,19 @@ var validate = web.validate
 class Check {
   @route('get', '/in')
   @validate({ payload: true })
-  checkIn(request, reply) {
+  checkIn (request, reply) {
     // intentionally empty
   }
 
   @route('get', '/out')
   @config({ test: 'hello' })
-  checkOut(request, reply) {
+  checkOut (request, reply) {
 
   }
 
   @route('get', '/')
   @cache({ privacy: 'public' })
-  listAll(request, reply) {
+  listAll (request, reply) {
 
   }
 }

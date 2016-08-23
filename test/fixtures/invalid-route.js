@@ -3,12 +3,12 @@ var web = require('../../')
 @web.controller('/check')
 class Check {
   @web.validate({ payload: true })
-  checkIn(request, reply) {
+  checkIn (request, reply) {
     // intentionally empty
   }
 
   @web.config({ test: 'hello' })
-  checkOut(request, reply) {
+  checkOut (request, reply) {
     // intentionally empty
   }
 }

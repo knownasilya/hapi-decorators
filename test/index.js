@@ -2,9 +2,8 @@
 
 var test = require('tape')
 var NoRoutes = require('./fixtures/no-routes')
-var Default = require('./fixtures/default');
-var Invalid = require('./fixtures/invalid-route');
-var web = require('../')
+var Default = require('./fixtures/default')
+var Invalid = require('./fixtures/invalid-route')
 
 test('instance has routes function', function (t) {
   let instance = new Default()
@@ -35,10 +34,10 @@ test('instance generates routes array', function (t) {
   t.end()
 })
 
-test('route paths remain valid after repeated calls to `routes()` method', function(t) {
+test('route paths remain valid after repeated calls to `routes()` method', function (t) {
   let instance = new Default()
-  let results = instance.routes()
-  let results2 = instance.routes()
+  instance.routes()
+  instance.routes()
   let results3 = instance.routes()
 
   let first = results3[0]

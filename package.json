@@ -4,7 +4,7 @@
   "description": "Decorators for HapiJS routes using ES6 classes",
   "main": "index.js",
   "scripts": {
-    "lint": "snazzy index.js",
+    "lint": "snazzy index.js test/*.js test/**/*.js",
     "test": "babel-node test/*.js | tspec",
     "posttest": "npm run lint",
     "coverage": "babel-node node_modules/.bin/isparta cover test/*.js | tspec",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "babel": "^5.8.23",
+    "babel-eslint": "^5.0.4",
     "coveralls": "^2.11.4",
     "docpress": "^0.6.13",
     "git-update-ghpages": "^1.3.0",
@@ -39,5 +40,8 @@
     "snazzy": "^2.0.1",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }
