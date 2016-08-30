@@ -112,6 +112,11 @@ Add a validation object for the different types, except for the response.
 
 Cache settings for the route config object.
 
+### `@pre(preArray)`
+
+Set prerequisite middleware array for a given route.
+Expects an array, but if passed something else, it will put it into the pre array.
+
 [babel]: https://www.npmjs.com/package/babel
 [transform-decorators-legacy]: https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
 [issue]: https://phabricator.babeljs.io/T2645

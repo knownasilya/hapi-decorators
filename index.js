@@ -115,6 +115,25 @@ function cache (cacheConfig) {
 
 exports.cache = cache
 
+function pre (pre) {
+  if (!Array.isArray(pre) {
+    pre = [pre]
+  }
+
+  debug('@pre setup')
+  return function (target, key, descriptor) {
+    setRoute(target, key, {
+      config: {
+        pre: pre
+      }
+    })
+
+    return descriptor
+  }
+}
+
+exports.pre = pre
+
 function setRoute (target, key, value) {
   if (!target.rawRoutes) {
     target.rawRoutes = []
