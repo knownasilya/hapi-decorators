@@ -116,7 +116,7 @@ function cache (cacheConfig) {
 exports.cache = cache
 
 function pre (pre) {
-  if (!Array.isArray(pre) {
+  if (!Array.isArray(pre)) {
     pre = [pre]
   }
 

@@ -27,10 +27,14 @@ test('instance generates routes array', function (t) {
   t.equal(results.length, 3, 'Has right number of routes')
 
   let first = results[0]
+  let second = results[1]
 
   t.equal(first.method, 'get', 'method is get')
   t.equal(first.path, '/check/in', 'path is merged with controller path')
   t.equal(typeof first.handler, 'function', 'handler is a function')
+
+  console.log(second)
+  t.equal(second.config.pre.length, 1, 'Has a pre assigned')
   t.end()
 })
 
@@ -69,7 +73,9 @@ test('config sets up config correctly', function (t) {
   let results = instance.routes()
   let second = results[1]
 
-  t.same(second.config, { id: 'Check.checkOut', bind: instance, test: 'hello' }, 'Config is valid')
+  t.equal(second.config.id, 'Check.checkOut')
+  t.equal(second.config.bind, instance)
+  t.equal(second.config.test, 'hello')
   t.end()
 })
 

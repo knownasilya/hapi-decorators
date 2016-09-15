@@ -1,9 +1,7 @@
-var web = require('../../')
-var controller = web.controller
-var route = web.route
-var cache = web.cache
-var config = web.config
-var validate = web.validate
+'use strict'
+
+const web = require('../../')
+const { controller, route, cache, config, validate, pre } = web
 
 @controller('/check')
 class Check {
@@ -14,6 +12,7 @@ class Check {
   }
 
   @route('get', '/out')
+  @pre({ method: () => { return 'test' }, assign: 'pre' })
   @config({ test: 'hello' })
   checkOut (request, reply) {
 
