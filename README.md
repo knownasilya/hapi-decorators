@@ -46,7 +46,7 @@ class TestController {
 let test = new TestController('world')
 
 // Add Test Controller routes to server
-server.routes(test.routes())
+server.route(test.routes())
 
 // Start the server
 server.start((err) => {
