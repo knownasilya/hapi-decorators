@@ -8,6 +8,7 @@ var routeMethods = {
   post: 'post',
   put: 'put',
   delete: 'delete',
+  del: 'delete',
   patch: 'patch',
   all: '*'
 }
