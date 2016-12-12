@@ -1,3 +1,8 @@
 {
-  "optional": ["es7.decorators", "es7.objectRestSpread"]
+  "optional": [
+    "es7.decorators",
+    "es7.objectRestSpread",
+    "es7.classProperties",
+    "es7.asyncFunctions"
+  ]
 }

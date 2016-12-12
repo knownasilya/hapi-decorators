@@ -117,12 +117,14 @@ function cache (cacheConfig) {
 exports.cache = cache
 
 function pre (pre) {
-  if (!Array.isArray(pre)) {
-    pre = [pre]
-  }
-
   debug('@pre setup')
   return function (target, key, descriptor) {
+    if (typeof pre === 'string') {
+      pre = [{ method: target.middleware[pre] }]
+    } else if (!Array.isArray(pre)) {
+      pre = [pre]
+    }
+
     setRoute(target, key, {
       config: {
         pre: pre
@@ -134,6 +136,20 @@ function pre (pre) {
 }
 
 exports.pre = pre
+
+function middleware () {
+  return function (target, key, descriptor) {
+    if (!target.middleware) {
+      target.middleware = {}
+    }
+
+    target.middleware[key] = descriptor.value
+
+    return descriptor
+  }
+}
+
+exports.middleware = middleware
 
 function setRoute (target, key, value) {
   if (!target.rawRoutes) {

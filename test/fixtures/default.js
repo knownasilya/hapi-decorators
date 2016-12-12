@@ -1,10 +1,15 @@
 'use strict'
 
 const web = require('../../')
-const { controller, route, cache, config, validate, pre } = web
+const { controller, route, cache, config, validate, pre, middleware } = web
 
 @controller('/check')
 class Check {
+  @middleware()
+  someMethod () {
+    return 'test'
+  }
+
   @route('get', '/in')
   @validate({ payload: true })
   checkIn (request, reply) {
@@ -12,7 +17,7 @@ class Check {
   }
 
   @route('get', '/out')
-  @pre({ method: () => { return 'test' }, assign: 'pre' })
+  @pre('someMethod')
   @config({ test: 'hello' })
   checkOut (request, reply) {
 
@@ -23,6 +28,7 @@ class Check {
   listAll (request, reply) {
 
   }
+
 }
 
 module.exports = Check

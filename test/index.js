@@ -33,7 +33,6 @@ test('instance generates routes array', function (t) {
   t.equal(first.path, '/check/in', 'path is merged with controller path')
   t.equal(typeof first.handler, 'function', 'handler is a function')
 
-  console.log(second)
   t.equal(second.config.pre.length, 1, 'Has a pre assigned')
   t.end()
 })
