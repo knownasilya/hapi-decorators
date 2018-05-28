@@ -163,7 +163,7 @@ function setRoute (target, key, value) {
       id: routeId
     }
   }
-  var found = find(target.rawRoutes, 'config.id', routeId)
+  var found = find(target.rawRoutes, 'options.id', routeId)
 
   if (found) {
     debug('Subsequent configuration of route object for: %s', routeId)
