@@ -39,7 +39,7 @@ exports.controller = function controller (baseUrl) {
         var hapiRoute = extend({}, route)
 
         hapiRoute.path = url
-        hapiRoute.config.bind = self
+        hapiRoute.options.bind = self
 
         return hapiRoute
       })
@@ -84,7 +84,7 @@ function options (options) {
   }
 }
 
-exports.config = config
+exports.options = options
 
 function validate (config) {
   debug('@validate setup')
