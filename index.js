@@ -56,7 +56,7 @@ function route (method, path) {
     setRoute(target, key, {
       method: method,
       path: path,
-      config: {
+      options: {
         id: routeId
       },
       handler: descriptor.value
@@ -73,11 +73,11 @@ Object.keys(routeMethods).forEach(function (key) {
   exports[key] = route.bind(null, routeMethods[key])
 })
 
-function config (config) {
-  debug('@config setup')
+function options (options) {
+  debug('@options setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: config
+      options: options
     })
 
     return descriptor
@@ -90,7 +90,7 @@ function validate (config) {
   debug('@validate setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: {
+      options: {
         validate: config
       }
     })
@@ -105,7 +105,7 @@ function cache (cacheConfig) {
   debug('@cache setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: {
+      options: {
         cache: cacheConfig
       }
     })
@@ -126,7 +126,7 @@ function pre (pre) {
     }
 
     setRoute(target, key, {
-      config: {
+      options: {
         pre: pre
       }
     })
@@ -159,7 +159,7 @@ function setRoute (target, key, value) {
   var targetName = target.constructor.name
   var routeId = targetName + '.' + key
   var defaultRoute = {
-    config: {
+    options: {
       id: routeId
     }
   }
