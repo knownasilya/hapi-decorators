@@ -1,7 +1,7 @@
 'use strict'
 
 const web = require('../../')
-const { controller, route, cache, config, validate, pre, middleware } = web
+const { controller, route, cache, options, validate, pre, middleware } = web
 
 @controller('/check')
 class Check {
@@ -18,7 +18,7 @@ class Check {
 
   @route('get', '/out')
   @pre('someMethod')
-  @config({ test: 'hello' })
+  @options({ test: 'hello' })
   checkOut (request, reply) {
 
   }
@@ -28,7 +28,5 @@ class Check {
   listAll (request, reply) {
 
   }
-
 }
-
 module.exports = Check

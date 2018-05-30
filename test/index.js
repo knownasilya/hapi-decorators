@@ -32,8 +32,9 @@ test('instance generates routes array', function (t) {
   t.equal(first.method, 'get', 'method is get')
   t.equal(first.path, '/check/in', 'path is merged with controller path')
   t.equal(typeof first.handler, 'function', 'handler is a function')
-
-  t.equal(second.config.pre.length, 1, 'Has a pre assigned')
+  if (second) {
+    t.equal(second.options.pre.length, 1, 'Has a pre assigned')
+  }
   t.end()
 })
 
@@ -49,32 +50,38 @@ test('route paths remain valid after repeated calls to `routes()` method', funct
   t.end()
 })
 
-test('validate sets up config correctly', function (t) {
+test('validate sets up options correctly', function (t) {
   let instance = new Default()
   let results = instance.routes()
   let first = results[0]
 
-  t.same(first.config, { id: 'Check.checkIn', bind: instance, validate: { payload: true } }, 'validate config is valid')
+  t.same(first.options, { id: 'Check.checkIn', bind: instance, validate: { payload: true } }, 'validate options is valid')
   t.end()
 })
 
-test('cache sets up config correctly', function (t) {
+test('cache sets up options correctly', function (t) {
   let instance = new Default()
   let results = instance.routes()
   let route = results[2]
 
-  t.same(route.config.cache, { privacy: 'public' }, 'cache config is valid')
+  t.ok(route, 'A third route was not found')
+  if (route) {
+    t.same(route.options.cache, { privacy: 'public' }, 'cache options is valid')
+  }
   t.end()
 })
 
-test('config sets up config correctly', function (t) {
+test('options sets up options correctly', function (t) {
   let instance = new Default()
   let results = instance.routes()
   let second = results[1]
+  t.ok(second, 'A second route was not found')
 
-  t.equal(second.config.id, 'Check.checkOut')
-  t.equal(second.config.bind, instance)
-  t.equal(second.config.test, 'hello')
+  if (second) {
+    t.equal(second.options.id, 'Check.checkOut')
+    t.equal(second.options.bind, instance)
+    t.equal(second.options.test, 'hello')
+  }
   t.end()
 })
 

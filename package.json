@@ -4,9 +4,10 @@
   "description": "Decorators for HapiJS routes using ES6 classes",
   "main": "index.js",
   "scripts": {
-    "lint": "snazzy index.js test/*.js test/**/*.js",
+    "build": "babel index.js test/*.js test/**/*.js -d dist --source-maps",
+    "lint": "standard | snazzy index.js test/*.js test/**/*.js",
     "pretest": "npm run lint",
-    "test": "babel-node test/*.js | tspec",
+    "test": "babel-node test/index.js | tspec",
     "posttest": "npm run lint",
     "coverage": "babel-node node_modules/.bin/isparta cover test/*.js | tspec",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
@@ -33,8 +34,12 @@
     "lodash.find": "^4.6.0"
   },
   "devDependencies": {
-    "babel": "^6.x",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.x",
+    "babel-plugin-transform-async-to-module-method": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "coveralls": "^3.0.x",
     "docpress": "^0.7.1",
     "git-update-ghpages": "^1.3.0",

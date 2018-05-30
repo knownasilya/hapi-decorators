@@ -7,7 +7,7 @@ class Check {
     // intentionally empty
   }
 
-  @web.config({ test: 'hello' })
+  @web.options({ test: 'hello' })
   checkOut (request, reply) {
     // intentionally empty
   }
