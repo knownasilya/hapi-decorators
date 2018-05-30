@@ -1,7 +1,6 @@
 'use strict'
 
 var extend = require('extend')
-var find = require('lodash.find')
 var debug = require('debug')('hapi-decorators')
 var routeMethods = {
   get: 'get',
@@ -163,7 +162,7 @@ function setRoute (target, key, value) {
       id: routeId
     }
   }
-  var found = find(target.rawRoutes, {options: { id: routeId }})
+  var found = target.rawRoutes.find(r => r.options.id === routeId)
 
   if (found) {
     debug('Subsequent configuration of route object for: %s', routeId)
