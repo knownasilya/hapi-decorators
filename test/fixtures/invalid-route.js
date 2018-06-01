@@ -1,7 +1,7 @@
 var web = require('../../')
 
 @web.controller('/check')
-class Check {
+class InvalidRoutes {
   @web.validate({ payload: true })
   checkIn (request, reply) {
     // intentionally empty
@@ -13,4 +13,4 @@ class Check {
   }
 }
 
-module.exports = Check
+module.exports = InvalidRoutes

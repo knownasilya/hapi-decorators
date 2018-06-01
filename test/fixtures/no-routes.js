@@ -1,7 +1,7 @@
 var web = require('../../')
 
 @web.controller('/check')
-class Check {
+class NoRoutes {
 }
 
-module.exports = Check
+module.exports = NoRoutes
