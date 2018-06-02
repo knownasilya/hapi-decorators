@@ -69,14 +69,11 @@ use the [transform-decorators-legacy] plugin. See this [post] for detailed instr
 
 ## Decorators
 
-### `@controller(basePath, optionsKey = 'config')`
+### `@controller(basePath)`
 
 **REQUIRED** This decorator is required at the class level, since it processes the other decorators, and adds
 the `instance.routes()` function, which returns the routes that can be used with Hapi, e.g. `server.routes(users.routes())`.
 
-The `optionsKey` parameter can be used depending on which version of hapi you are running. Using the default of `'config'` is for hapi version < 17, `'options'` is for version >= 17.
-
-#### `@cntrlr(basePath)` decorator can be used to default yourself to the `'options'` optionsKey.
 
 ### `@route(method, path)`
 
@@ -103,10 +100,6 @@ class Users {
 * `@all(path)`
 
 These are shortcuts for `@route(method, path)` where `@get('/revoke')` would be `@route('get', '/revoke')`.
-
-### `@config(config)`
-
-Overall configuration setting if none of the other decorators are sufficient.
 
 ### `@options(options)`
 

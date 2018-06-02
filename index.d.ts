@@ -5,13 +5,11 @@
 // TypeScript Version: 2.4
 import * as hapi from 'hapi';
 
-OPTIONS_KEY: 'options' | 'config';
 interface ControllerStatic {
     new(...args: any[]): Controller;
 }
 export interface Controller {
     baseUrl: string;
-    optionsKey: string;
     routes: () => hapi.ServerRoute[];
 }
 export function controller(baseUrl: string): (target: ControllerStatic) => void;
@@ -33,7 +31,6 @@ export const del: IRouteConfig;
 export const patch: IRouteConfig;
 export const all: IRouteConfig;
 export function options(options: hapi.RouteOptions | ((server: hapi.Server) => hapi.RouteOptions)): (target: any, key: string, descriptor: PropertyDescriptor) => PropertyDescriptor;
-export function config(config: hapi.RouteAdditionalConfigurationOptions | ((server: hapi.Server) => hapi.RouteAdditionalConfigurationOptions)): (target: any, key: any, descriptor: PropertyDescriptor) => PropertyDescriptor;
 export function validate(config: hapi.RouteOptionsValidate): (target: any, key: string, descriptor: PropertyDescriptor) => PropertyDescriptor;
 export function cache(cacheConfig: false | hapi.RouteOptionsCache): (target: any, key: string, descriptor: PropertyDescriptor) => PropertyDescriptor;
 export function pre(pre: hapi.RouteOptionsPreArray): (target: any, key: string, descriptor: PropertyDescriptor) => PropertyDescriptor;

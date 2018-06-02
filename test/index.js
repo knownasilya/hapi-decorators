@@ -3,7 +3,6 @@
 var test = require('tape')
 var NoRoutes = require('./fixtures/no-routes')
 var Default = require('./fixtures/default')
-var DefaultOptions = require('./fixtures/default-options')
 var Invalid = require('./fixtures/invalid-route')
 
 test('instance has routes function', function (t) {
@@ -20,92 +19,78 @@ test('instance has no routes', function (t) {
   t.end()
 })
 
-var testClasses = [Default, DefaultOptions]
+test('instance generates routes array', function (t) {
+  let instance = new Default()
+  let results = instance.routes()
 
-testClasses.forEach(function (TestClass) {
-  test('instance sets options/config correctly', function (t) {
-    let instance = new TestClass()
-    let results = instance.routes()
+  t.ok(Array.isArray(results), 'results is an array')
+  t.equal(results.length, 3, 'Has right number of routes')
 
-    let first = results[0]
+  let first = results[0]
+  let second = results[1]
 
-    t.ok(first.hasOwnProperty(instance.optionsKey))
-    t.end()
-  })
+  t.equal(first.method, 'get', 'method is get')
+  t.equal(first.path, '/check/in', 'path is merged with controller path')
+  t.equal(typeof first.handler, 'function', 'handler is a function')
+  if (second) {
+    t.equal(second.options.pre.length, 1, 'Has a pre assigned')
+  }
+  t.end()
+})
 
-  test('instance generates routes array', function (t) {
-    let instance = new TestClass()
-    let results = instance.routes()
+test('route paths remain valid after repeated calls to `routes()` method', function (t) {
+  let instance = new Default()
+  instance.routes()
+  instance.routes()
+  let results3 = instance.routes()
 
-    t.ok(Array.isArray(results), 'results is an array')
-    t.equal(results.length, 3, 'Has right number of routes')
+  let first = results3[0]
 
-    let first = results[0]
-    let second = results[1]
+  t.equal(first.path, '/check/in', 'path remains valid')
+  t.end()
+})
 
-    t.equal(first.method, 'get', 'method is get')
-    t.equal(first.path, '/check/in', 'path is merged with controller path')
-    t.equal(typeof first.handler, 'function', 'handler is a function')
-    if (second) {
-      t.equal(second[instance.optionsKey].pre.length, 1, 'Has a pre assigned')
+test('validate sets up options correctly', function (t) {
+  let instance = new Default()
+  let results = instance.routes()
+  let first = results[0]
+
+  t.same(first.options, {
+    id: 'Check.checkIn',
+    bind: instance,
+    validate: {
+      payload: true
     }
-    t.end()
-  })
+  }, 'validate options is valid')
+  t.end()
+})
 
-  test('route paths remain valid after repeated calls to `routes()` method', function (t) {
-    let instance = new TestClass()
-    instance.routes()
-    instance.routes()
-    let results3 = instance.routes()
+test('cache sets up options correctly', function (t) {
+  let instance = new Default()
+  let results = instance.routes()
+  let route = results[2]
 
-    let first = results3[0]
+  t.ok(route, 'A third route was not found')
+  if (route) {
+    t.same(route.options.cache, {
+      privacy: 'public'
+    }, 'cache options is valid')
+  }
+  t.end()
+})
 
-    t.equal(first.path, '/check/in', 'path remains valid')
-    t.end()
-  })
+test('options sets up options correctly', function (t) {
+  let instance = new Default()
+  let results = instance.routes()
+  let second = results[1]
+  t.ok(second, 'A second route was not found')
 
-  test('validate sets up options correctly', function (t) {
-    let instance = new TestClass()
-    let results = instance.routes()
-    let first = results[0]
-
-    t.same(first[instance.optionsKey], {
-      id: 'Check.checkIn',
-      bind: instance,
-      validate: {
-        payload: true
-      }
-    }, 'validate options is valid')
-    t.end()
-  })
-
-  test('cache sets up options correctly', function (t) {
-    let instance = new TestClass()
-    let results = instance.routes()
-    let route = results[2]
-
-    t.ok(route, 'A third route was not found')
-    if (route) {
-      t.same(route[instance.optionsKey].cache, {
-        privacy: 'public'
-      }, 'cache options is valid')
-    }
-    t.end()
-  })
-
-  test('options sets up options correctly', function (t) {
-    let instance = new TestClass()
-    let results = instance.routes()
-    let second = results[1]
-    t.ok(second, 'A second route was not found')
-
-    if (second) {
-      t.equal(second[instance.optionsKey].id, 'Check.checkOut')
-      t.equal(second[instance.optionsKey].bind, instance)
-      t.equal(second[instance.optionsKey].test, 'hello')
-    }
-    t.end()
-  })
+  if (second) {
+    t.equal(second.options.id, 'Check.checkOut')
+    t.equal(second.options.bind, instance)
+    t.equal(second.options.test, 'hello')
+  }
+  t.end()
 })
 
 test('invalid setup with no routes', function (t) {

@@ -12,11 +12,10 @@ var routeMethods = {
   all: '*'
 }
 
-exports.controller = function controller (baseUrl, optionsKey = 'config') {
+exports.controller = function controller (baseUrl) {
   debug(`@controller setup`)
   return function (target) {
     target.prototype.baseUrl = baseUrl
-    target.prototype.optionsKey = optionsKey
 
     target.prototype.routes = function () {
       var self = this
@@ -40,17 +39,12 @@ exports.controller = function controller (baseUrl, optionsKey = 'config') {
         var hapiRoute = extend({}, route)
 
         hapiRoute.path = url
-        hapiRoute[optionsKey] = hapiRoute.settings
-        hapiRoute[optionsKey].bind = self
+        hapiRoute.options.bind = self
 
         return hapiRoute
       })
     }
   }
-}
-
-exports.cntrlr = function (baseUrl) {
-  return exports.controller(baseUrl, 'options')
 }
 
 function route (method, path) {
@@ -62,7 +56,7 @@ function route (method, path) {
     setRoute(target, key, {
       method: method,
       path: path,
-      settings: {
+      options: {
         id: routeId
       },
       handler: descriptor.value
@@ -83,7 +77,7 @@ function options (options) {
   debug('@options or @config setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      settings: options
+      options: options
     })
 
     return descriptor
@@ -91,13 +85,12 @@ function options (options) {
 }
 
 exports.options = options
-exports.config = options
 
 function validate (config) {
   debug('@validate setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      settings: {
+      options: {
         validate: config
       }
     })
@@ -112,7 +105,7 @@ function cache (cacheConfig) {
   debug('@cache setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      settings: {
+      options: {
         cache: cacheConfig
       }
     })
@@ -133,7 +126,7 @@ function pre (pre) {
     }
 
     setRoute(target, key, {
-      settings: {
+      options: {
         pre: pre
       }
     })
@@ -166,11 +159,11 @@ function setRoute (target, key, value) {
   var targetName = target.constructor.name
   var routeId = targetName + '.' + key
   var defaultRoute = {
-    settings: {
+    options: {
       id: routeId
     }
   }
-  var found = target.rawRoutes.find(r => r.settings.id === routeId)
+  var found = target.rawRoutes.find(r => r.options.id === routeId)
 
   if (found) {
     debug('Subsequent configuration of route object for: %s', routeId)
