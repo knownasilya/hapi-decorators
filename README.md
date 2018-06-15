@@ -11,7 +11,12 @@ Great to mix with https://github.com/jayphelps/core-decorators.js
 
 ## Usage
 
-```no-highlight
+Prerequisits:
+
+- Hapi 17+ (Use 0.x for Hapi 16 or earlier)
+- Node 6+ (Use 0.x for Node 5 or earlier)
+
+```sh
 npm install --save hapi-decorators
 ```
 
