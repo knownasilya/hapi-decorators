@@ -2,17 +2,47 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="assets/style.css?t=a44c9e9d">
-    <script src="assets/script.js?t=820b7ffa"></script>
+    <link rel="stylesheet" href="assets/style.css?t=615badd5">
+    <script src="assets/script.js?t=42463e55"></script>
     <title>hapi-decorators</title>
     <meta name="viewport" content="width=device-width">
   </head>
   <body class="-menu-visible">
     <div class="doc-layout">
       <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <li class="menu-item -level-0 -parent">
+          <ul class="submenu">
+            <li class="menu-item -level-1"><a class="link title -active link-index" href="index.html">hapi-decorators</a>
+            </li>
+            <li class="menu-item -level-1 -parent"><a class="link title link-usage" href="#usage">Usage</a>
+              <ul class="submenu">
+                <li class="menu-item -level-2"><a class="link title link-setup-babel" href="#setup-babel">Setup Babel</a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item -level-1 -parent"><a class="link title link-decorators" href="#decorators">Decorators</a>
+              <ul class="submenu">
+                <li class="menu-item -level-2"><a class="link title link-@controller(basepath)" href="#@controller(basepath)">`@controller(basePath)`</a>
+                </li>
+                <li class="menu-item -level-2"><a class="link title link-@route(method-path)" href="#@route(method-path)">`@route(method, path)`</a>
+                </li>
+                <li class="menu-item -level-2"><a class="link title link-@options(options)" href="#@options(options)">`@options(options)`</a>
+                </li>
+                <li class="menu-item -level-2"><a class="link title link-@validate(validateconfig)" href="#@validate(validateconfig)">`@validate(validateConfig)`</a>
+                </li>
+                <li class="menu-item -level-2"><a class="link title link-@cache(cacheconfig)" href="#@cache(cacheconfig)">`@cache(cacheConfig)`</a>
+                </li>
+                <li class="menu-item -level-2"><a class="link title link-@pre(prearray)" href="#@pre(prearray)">`@pre(preArray)`</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </div>
       <div class="body page-index">
         <div class="header-nav">
-          <div class="right"><a href="https://github.com/knownasilya/hapi-decorators" data-title="knownasilya/hapi-decorators" class="iconlink">
+          <div class="right"><a class="iconlink" href="https://github.com/knownasilya/hapi-decorators" data-title="knownasilya/hapi-decorators">
               <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
           </div>
         </div>
@@ -24,7 +54,12 @@ Heavily inspired and borrowed from <a href="https://github.com/stewartml/express
 <a href="https://travis-ci.org/knownasilya/hapi-decorators"><img src="https://travis-ci.org/knownasilya/hapi-decorators.svg" alt="Build Status"></a>
 <a href="https://coveralls.io/github/knownasilya/hapi-decorators?branch=master"><img src="https://coveralls.io/repos/knownasilya/hapi-decorators/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a></p>
 <h2 id="usage">Usage</h2>
-<pre><code class="lang-no-highlight">npm install --save hapi-decorators
+<p>Prerequisits:</p>
+<ul>
+<li>Hapi 17+ (Use 0.x for Hapi 16 or earlier)</li>
+<li>Node 6+ (Use 0.x for Node 5 or earlier)</li>
+</ul>
+<pre><code class="lang-sh">npm install --save hapi-decorators
 </code></pre>
 <pre><code class="lang-js"><span class="pl-k">import</span> {
   get,
@@ -35,8 +70,8 @@ Heavily inspired and borrowed from <a href="https://github.com/stewartml/express
 <span class="pl-k">const</span> server = <span class="pl-k">new</span> Hapi.Server()
 
 server.connection({
-  host: <span class="pl-s">&apos;localhost&apos;</span>,
-  port: <span class="hljs-number">3000</span>
+  <span class="hljs-attr">host</span>: <span class="pl-s">&apos;localhost&apos;</span>,
+  <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>
 })
 
 <span class="pl-c">// Define your endpoint controller</span>
@@ -48,7 +83,7 @@ server.connection({
 
   @get(<span class="pl-s">&apos;/world&apos;</span>)
   sayHello(request, reply) {
-    reply({ message: <span class="pl-s">`hello, <span class="hljs-subst">${this.target}</span>`</span> })
+    reply({ <span class="hljs-attr">message</span>: <span class="pl-s">`hello, <span class="hljs-subst">${<span class="pl-k">this</span>.target}</span>`</span> })
   }
 }
 
@@ -56,10 +91,10 @@ server.connection({
 <span class="pl-k">let</span> test = <span class="pl-k">new</span> TestController(<span class="pl-s">&apos;world&apos;</span>)
 
 <span class="pl-c">// Add Test Controller routes to server</span>
-server.routes(test.routes())
+server.route(test.routes())
 
 <span class="pl-c">// Start the server</span>
-server.start((err) =&gt; {
+server.start(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
   <span class="pl-k">if</span> (err) <span class="pl-k">throw</span> err
   <span class="pl-c1">console</span>.log(<span class="pl-s">`Server running at: <span class="hljs-subst">${server.info.uri}</span>`</span>)
 })
@@ -91,46 +126,22 @@ the <code>instance.routes()</code> function, which returns the routes that can b
 <li><code>@put(path)</code></li>
 <li><code>@patch(path)</code></li>
 <li><code>@delete(path)</code></li>
+<li><code>@del(path)</code></li>
 <li><code>@all(path)</code></li>
 </ul>
 <p>These are shortcuts for <code>@route(method, path)</code> where <code>@get(&apos;/revoke&apos;)</code> would be <code>@route(&apos;get&apos;, &apos;/revoke&apos;)</code>.</p>
-<h3 id="@config(config)"><code>@config(config)</code></h3>
-<p>Overall configuration setting if none of the other decorators are sufficient.</p>
+<h3 id="@options(options)"><code>@options(options)</code></h3>
+<p>Overall options setting if none of the other decorators are sufficient.</p>
 <h3 id="@validate(validateconfig)"><code>@validate(validateConfig)</code></h3>
 <p>Add a validation object for the different types, except for the response.
 <code>config</code> is an object, with keys for the different types, e.g. <code>payload</code>.</p>
 <h3 id="@cache(cacheconfig)"><code>@cache(cacheConfig)</code></h3>
 <p>Cache settings for the route config object.</p>
+<h3 id="@pre(prearray)"><code>@pre(preArray)</code></h3>
+<p>Set prerequisite middleware array for a given route.
+Expects an array, but if passed something else, it will put it into the pre array.</p>
 
         </div>
-      </div>
-      <div class="menu toc-menu">
-        <li class="menu-item -level-0 -parent">
-          <ul class="submenu">
-            <li class="menu-item -level-1"><a href="index.html" class="link title -active link-index">hapi-decorators</a>
-            </li>
-            <li class="menu-item -level-1 -parent"><a href="#usage" class="link title link-usage">Usage</a>
-              <ul class="submenu">
-                <li class="menu-item -level-2"><a href="#setup-babel" class="link title link-setup-babel">Setup Babel</a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item -level-1 -parent"><a href="#decorators" class="link title link-decorators">Decorators</a>
-              <ul class="submenu">
-                <li class="menu-item -level-2"><a href="#@controller(basepath)" class="link title link-@controller(basepath)">`@controller(basePath)`</a>
-                </li>
-                <li class="menu-item -level-2"><a href="#@route(method-path)" class="link title link-@route(method-path)">`@route(method, path)`</a>
-                </li>
-                <li class="menu-item -level-2"><a href="#@config(config)" class="link title link-@config(config)">`@config(config)`</a>
-                </li>
-                <li class="menu-item -level-2"><a href="#@validate(validateconfig)" class="link title link-@validate(validateconfig)">`@validate(validateConfig)`</a>
-                </li>
-                <li class="menu-item -level-2"><a href="#@cache(cacheconfig)" class="link title link-@cache(cacheconfig)">`@cache(cacheConfig)`</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
       </div>
     </div>
   </body>

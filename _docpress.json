@@ -36,9 +36,9 @@
                 "id": "@route(method-path)"
               },
               {
-                "title": "`@config(config)`",
+                "title": "`@options(options)`",
                 "depth": 3,
-                "id": "@config(config)"
+                "id": "@options(options)"
               },
               {
                 "title": "`@validate(validateConfig)`",
@@ -49,6 +49,11 @@
                 "title": "`@cache(cacheConfig)`",
                 "depth": 3,
                 "id": "@cache(cacheconfig)"
+              },
+              {
+                "title": "`@pre(preArray)`",
+                "depth": 3,
+                "id": "@pre(prearray)"
               }
             ]
           }
@@ -60,6 +65,7 @@
     "index.html": {
       "source": "README.md",
       "title": "hapi-decorators",
+      "pageTitle": "hapi-decorators",
       "slug": "index",
       "headings": [
         {
@@ -90,9 +96,9 @@
               "id": "@route(method-path)"
             },
             {
-              "title": "`@config(config)`",
+              "title": "`@options(options)`",
               "depth": 3,
-              "id": "@config(config)"
+              "id": "@options(options)"
             },
             {
               "title": "`@validate(validateConfig)`",
@@ -103,6 +109,11 @@
               "title": "`@cache(cacheConfig)`",
               "depth": 3,
               "id": "@cache(cacheconfig)"
+            },
+            {
+              "title": "`@pre(preArray)`",
+              "depth": 3,
+              "id": "@pre(prearray)"
             }
           ]
         }
