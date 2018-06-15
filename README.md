@@ -74,6 +74,7 @@ use the [transform-decorators-legacy] plugin. See this [post] for detailed instr
 **REQUIRED** This decorator is required at the class level, since it processes the other decorators, and adds
 the `instance.routes()` function, which returns the routes that can be used with Hapi, e.g. `server.routes(users.routes())`.
 
+
 ### `@route(method, path)`
 
 This decorator should be attached to a method of a class, e.g.
@@ -95,13 +96,14 @@ class Users {
 * `@put(path)`
 * `@patch(path)`
 * `@delete(path)`
+* `@del(path)`
 * `@all(path)`
 
 These are shortcuts for `@route(method, path)` where `@get('/revoke')` would be `@route('get', '/revoke')`.
 
-### `@config(config)`
+### `@options(options)`
 
-Overall configuration setting if none of the other decorators are sufficient.
+Overall options setting if none of the other decorators are sufficient.
 
 ### `@validate(validateConfig)`
 

@@ -1,8 +1,8 @@
 {
-  "optional": [
-    "es7.decorators",
-    "es7.objectRestSpread",
-    "es7.classProperties",
-    "es7.asyncFunctions"
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-async-to-module-method"
   ]
 }

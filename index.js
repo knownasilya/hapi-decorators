@@ -1,7 +1,6 @@
 'use strict'
 
 var extend = require('extend')
-var find = require('lodash.find')
 var debug = require('debug')('hapi-decorators')
 var routeMethods = {
   get: 'get',
@@ -14,6 +13,7 @@ var routeMethods = {
 }
 
 exports.controller = function controller (baseUrl) {
+  debug(`@controller setup`)
   return function (target) {
     target.prototype.baseUrl = baseUrl
 
@@ -39,7 +39,7 @@ exports.controller = function controller (baseUrl) {
         var hapiRoute = extend({}, route)
 
         hapiRoute.path = url
-        hapiRoute.config.bind = self
+        hapiRoute.options.bind = self
 
         return hapiRoute
       })
@@ -56,7 +56,7 @@ function route (method, path) {
     setRoute(target, key, {
       method: method,
       path: path,
-      config: {
+      options: {
         id: routeId
       },
       handler: descriptor.value
@@ -73,24 +73,24 @@ Object.keys(routeMethods).forEach(function (key) {
   exports[key] = route.bind(null, routeMethods[key])
 })
 
-function config (config) {
-  debug('@config setup')
+function options (options) {
+  debug('@options or @config setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: config
+      options: options
     })
 
     return descriptor
   }
 }
 
-exports.config = config
+exports.options = options
 
 function validate (config) {
   debug('@validate setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: {
+      options: {
         validate: config
       }
     })
@@ -105,7 +105,7 @@ function cache (cacheConfig) {
   debug('@cache setup')
   return function (target, key, descriptor) {
     setRoute(target, key, {
-      config: {
+      options: {
         cache: cacheConfig
       }
     })
@@ -126,7 +126,7 @@ function pre (pre) {
     }
 
     setRoute(target, key, {
-      config: {
+      options: {
         pre: pre
       }
     })
@@ -159,11 +159,11 @@ function setRoute (target, key, value) {
   var targetName = target.constructor.name
   var routeId = targetName + '.' + key
   var defaultRoute = {
-    config: {
+    options: {
       id: routeId
     }
   }
-  var found = find(target.rawRoutes, 'config.id', routeId)
+  var found = target.rawRoutes.find(r => r.options.id === routeId)
 
   if (found) {
     debug('Subsequent configuration of route object for: %s', routeId)
