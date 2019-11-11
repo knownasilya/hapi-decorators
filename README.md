@@ -13,7 +13,7 @@ Great to mix with https://github.com/jayphelps/core-decorators.js
 
 Prerequisits:
 
-- Hapi 17+ (Use 0.x for Hapi 16 or earlier)
+- Hapi 18.4+ (Use 0.x for Hapi 16 or earlier)
 - Node 6+ (Use 0.x for Node 5 or earlier)
 
 ```sh
@@ -25,7 +25,7 @@ import {
   get,
   controller
 } from 'hapi-decorators'
-import Hapi from 'hapi'
+import Hapi from '@hapi/hapi'
 
 const server = new Hapi.Server()
 

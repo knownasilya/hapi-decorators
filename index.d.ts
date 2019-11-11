@@ -3,7 +3,7 @@
 // Definitions by: Ken Howard <https://github.com/kenhowardpdx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-import * as hapi from 'hapi';
+import * as hapi from '@hapi/hapi';
 
 interface ControllerStatic {
     new(...args: any[]): Controller;
