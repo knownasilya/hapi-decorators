@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="assets/style.css?t=615badd5">
-    <script src="assets/script.js?t=42463e55"></script>
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
     <title>hapi-decorators</title>
     <meta name="viewport" content="width=device-width">
   </head>
@@ -11,34 +11,36 @@
     <div class="doc-layout">
       <div class="toggle menu-toggle js-menu-toggle"></div>
       <div class="menu toc-menu">
-        <li class="menu-item -level-0 -parent">
-          <ul class="submenu">
-            <li class="menu-item -level-1"><a class="link title -active link-index" href="index.html">hapi-decorators</a>
-            </li>
-            <li class="menu-item -level-1 -parent"><a class="link title link-usage" href="#usage">Usage</a>
-              <ul class="submenu">
-                <li class="menu-item -level-2"><a class="link title link-setup-babel" href="#setup-babel">Setup Babel</a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item -level-1 -parent"><a class="link title link-decorators" href="#decorators">Decorators</a>
-              <ul class="submenu">
-                <li class="menu-item -level-2"><a class="link title link-@controller(basepath)" href="#@controller(basepath)">`@controller(basePath)`</a>
-                </li>
-                <li class="menu-item -level-2"><a class="link title link-@route(method-path)" href="#@route(method-path)">`@route(method, path)`</a>
-                </li>
-                <li class="menu-item -level-2"><a class="link title link-@options(options)" href="#@options(options)">`@options(options)`</a>
-                </li>
-                <li class="menu-item -level-2"><a class="link title link-@validate(validateconfig)" href="#@validate(validateconfig)">`@validate(validateConfig)`</a>
-                </li>
-                <li class="menu-item -level-2"><a class="link title link-@cache(cacheconfig)" href="#@cache(cacheconfig)">`@cache(cacheConfig)`</a>
-                </li>
-                <li class="menu-item -level-2"><a class="link title link-@pre(prearray)" href="#@pre(prearray)">`@pre(preArray)`</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title -active link-index" href="index.html">hapi-decorators</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title link-usage" href="#usage">Usage</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title link-setup-babel" href="#setup-babel">Setup Babel</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title link-decorators" href="#decorators">Decorators</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title link-@controller(basepath)" href="#@controller(basepath)">`@controller(basePath)`</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title link-@route(method-path)" href="#@route(method-path)">`@route(method, path)`</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title link-@options(options)" href="#@options(options)">`@options(options)`</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title link-@validate(validateconfig)" href="#@validate(validateconfig)">`@validate(validateConfig)`</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title link-@cache(cacheconfig)" href="#@cache(cacheconfig)">`@cache(cacheConfig)`</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title link-@pre(prearray)" href="#@pre(prearray)">`@pre(preArray)`</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
       <div class="body page-index">
         <div class="header-nav">
@@ -56,18 +58,18 @@ Heavily inspired and borrowed from <a href="https://github.com/stewartml/express
 <h2 id="usage">Usage</h2>
 <p>Prerequisits:</p>
 <ul>
-<li>Hapi 17+ (Use 0.x for Hapi 16 or earlier)</li>
-<li>Node 6+ (Use 0.x for Node 5 or earlier)</li>
+<li>Hapi 18.4+ (Use 1.x for Hapi 17)</li>
+<li>Node 8+ (Use 1.x for Node 6)</li>
 </ul>
 <pre><code class="lang-sh">npm install --save hapi-decorators
 </code></pre>
 <pre><code class="lang-js"><span class="pl-k">import</span> {
-  get,
+  <span class="pl-k">get</span>,
   controller
-} <span class="pl-k">from</span> <span class="pl-s">&apos;hapi-decorators&apos;</span>
-<span class="pl-k">import</span> Hapi <span class="pl-k">from</span> <span class="pl-s">&apos;hapi&apos;</span>
+} from &apos;hapi-decorators&apos;
+import Hapi from &apos;@hapi/hapi&apos;
 
-<span class="pl-k">const</span> server = <span class="pl-k">new</span> Hapi.Server()
+const server = new Hapi.Server()
 
 server.connection({
   <span class="hljs-attr">host</span>: <span class="pl-s">&apos;localhost&apos;</span>,
@@ -81,7 +83,7 @@ server.connection({
     <span class="pl-k">this</span>.target = target
   }
 
-  @get(<span class="pl-s">&apos;/world&apos;</span>)
+  @<span class="pl-k">get</span>(&apos;/world&apos;)
   sayHello(request, reply) {
     reply({ <span class="hljs-attr">message</span>: <span class="pl-s">`hello, <span class="hljs-subst">${<span class="pl-k">this</span>.target}</span>`</span> })
   }
